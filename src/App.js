@@ -75,20 +75,20 @@ function App() {
          
           key === "AUD" ? (
             <div className="BarChart-bar-AUD" style={{height: (data[key] * 100) + "px"}}>
-            {key} </div>
+            {key} {data[key]}</div>
           ) :
           key === "GBP" ? (
             <div className="BarChart-bar-GBP" style={{height: (data[key] * 100) + "px"}}>
-             {key} </div>
+             {key} {data[key]} </div>
           ) :
           key === "USD" ? (
             <div className="BarChart-bar-USD" style={{height: (data[key] * 100) + "px"}}>
-            {key} </div>
+            {key} {data[key]} </div>
           ) :
 
          key ==="CAD" ? (
             <div className="BarChart-bar-CAD" style={{height: (data[key] * 100) + "px"}}>
-             {key} </div>
+             {key} {data[key]} </div>
           ) : null
        
           )
