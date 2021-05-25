@@ -17,8 +17,8 @@ function App() {
     fetch('http://api.exchangeratesapi.io/v1/' + year +'-'+ month +'-' + day + '?access_key=' + accessKey)
     .then(response => response.json())
     .then(data => {
-      console.log('data came back', data);
-      setData(data);
+       console.log('data came back', data);
+      setData(data.rates);
      return;
    
     })
@@ -35,7 +35,6 @@ function App() {
   function onYearChange(ev){
     setYear(ev.target.value);
   }
-
 
   return (
    
@@ -66,23 +65,37 @@ function App() {
      }
     
     <button onClick={doFetch}>Submit</button>
-    <div className="BarChart" id="graph">
-    
-      {
-          Object.entries(data).map(([key, value]) => (
-          <div className="BarChart-bar" style={{height: (value * 10) + "%"}}>
-          {key}
-         </div>
-          
-        ))
-      }
-</div>
-      
-   </div>
-  </div>
- 
-  );
+    </div>
+    <div className="BarChart" id="graph"/>
+    {
+      //  Object.entries(data).map(([key, value]) => (
+        Object.keys(data).map(key =>
+        // console.log(data[key]) currency value
+        // console.log(key)
+         
+          key === "AUD" ? (
+            <div className="BarChart-bar-AUD" style={{height: (data[key] * 100) + "px"}}>
+            {key} </div>
+          ) :
+          key === "GBP" ? (
+            <div className="BarChart-bar-GBP" style={{height: (data[key] * 100) + "px"}}>
+             {key} </div>
+          ) :
+          key === "USD" ? (
+            <div className="BarChart-bar-USD" style={{height: (data[key] * 100) + "px"}}>
+            {key} </div>
+          ) :
 
-  }
+         key ==="CAD" ? (
+            <div className="BarChart-bar-CAD" style={{height: (data[key] * 100) + "px"}}>
+             {key} </div>
+          ) : null
+       
+          )
 
+   }
+  
+      </div>
+  )
+}  
 export default App;
