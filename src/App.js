@@ -65,10 +65,10 @@ function App() {
      }
     
     <button onClick={doFetch}>Submit</button>
-    </div>
-    <div className="BarChart" id="graph"/>
+   
+    <div id="graph">
+    
     {
-      //  Object.entries(data).map(([key, value]) => (
         Object.keys(data).map(key =>
         // console.log(data[key]) currency value
         // console.log(key)
@@ -94,8 +94,10 @@ function App() {
           )
 
    }
-  
       </div>
+      </div>
+      </div>
+      
   )
 }  
 export default App;
