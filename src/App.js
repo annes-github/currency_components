@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-// import reactDom from 'react-dom';
 
 function App() {
 
@@ -9,12 +8,11 @@ function App() {
   const [day, setDay] = useState();
   const [data, setData] = useState([]);
 
-
-  
-  function doFetch(){
+//fetching data for the latest rates and setting data with the response
+  function doFetchWithoutDate(){
     const accessKey= 'd787bfae4ff1b140e5abf61f63b235d9'
     console.log('fetching');
-    fetch('http://api.exchangeratesapi.io/v1/' + year +'-'+ month +'-' + day + '?access_key=' + accessKey)
+    fetch('http://api.exchangeratesapi.io/v1/latest' + '?access_key=' + accessKey)
     .then(response => response.json())
     .then(data => {
        console.log('data came back', data);
@@ -23,15 +21,31 @@ function App() {
    
     })
   }
+  
+  //fetching data for the rates for a specified date and setting data with the response
+  function doFetchWithDate(){
+    const accessKey= 'd787bfae4ff1b140e5abf61f63b235d9'
+    console.log('fetching');
+    fetch('http://api.exchangeratesapi.io/v1/' + year +'-'+ month +'-' + day + '?access_key=' + accessKey)
+    .then(response => response.json())
+    .then(data => {
+      setData(data.rates);
+     return;
+   
+    })
+  }
 
+  //Setting the month for the event of a month input
   function onMonthChange(ev){
     setMonth(ev.target.value);
   }
 
+   //Setting the day for the event of a day input
   function onDayChange(ev){
     setDay(ev.target.value);
   }
 
+   //Setting the year for the event of a year input
   function onYearChange(ev){
     setYear(ev.target.value);
   }
@@ -42,7 +56,8 @@ function App() {
       
       <div class="BarChart-title"> Currency Exchange Rates (Base EUR) </div>
       <div className="BarChartInput">
-      <h1>Please enter a date on or after January 4, 1998 to see the exchange rate:</h1>
+      <p>Click <button onClick={doFetchWithoutDate}>Latest</button> to see the latest exchange rates.</p>
+      <p>Or enter a date on or after January 4, 1998 to see the rates for that date:</p>
       {
       <input placeholder="Month mm"
         onChange={onMonthChange}
@@ -64,14 +79,12 @@ function App() {
       />
      }
     
-    <button onClick={doFetch}>Submit</button>
+    <button onClick={doFetchWithDate}>Submit</button>
    
     <div id="graph">
     
     {
         Object.keys(data).map(key =>
-        // console.log(data[key]) currency value
-        // console.log(key)
          
           key === "AUD" ? (
             <div className="BarChart-bar-AUD" style={{height: (data[key] * 100) + "px"}}>
@@ -92,7 +105,6 @@ function App() {
           ) : null
        
           )
-
    }
       </div>
       </div>
