@@ -1,0 +1,17 @@
+.BarChartInput {
+    padding-top: 20px;
+    display: flexbox; 
+    text-align: center;
+    height: 200px;
+    width: 1000px;
+    align-items: flex-end;
+    background-color: lightskyblue;
+  }
+
+  
+   
+p {
+    margin-top: 10px;
+    justify-content: center;
+    font-weight: 700;
+    }

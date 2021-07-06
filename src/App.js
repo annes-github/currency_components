@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import './App.css';
+import DateInput from './components/DateInput/DateInput.js'
+import InputText from './components/InputText/InputText.js'
+import Bar from './components/Bar/Bar.js'
+import Title from './components/Title/Title.js'
 
 function App() {
 
@@ -17,8 +21,6 @@ function App() {
     .then(data => {
        console.log('data came back', data);
       setData(data.rates);
-     return;
-   
     })
   }
   
@@ -30,8 +32,6 @@ function App() {
     .then(response => response.json())
     .then(data => {
       setData(data.rates);
-     return;
-   
     })
   }
 
@@ -53,59 +53,53 @@ function App() {
   return (
    
     <div className="App">
-      
-      <div class="BarChart-title"> Currency Exchange Rates (Base EUR) </div>
-      <div className="BarChartInput">
-      <p>Click <button onClick={doFetchWithoutDate}>Latest</button> to see the latest exchange rates.</p>
-      <p>Or enter a date on or after January 4, 1998 to see the rates for that date:</p>
-      {
-      <input placeholder="Month mm"
-        onChange={onMonthChange}
-        value={month}
-      />
-     }
 
-     {
-      <input placeholder="Day dd"
-      onChange={onDayChange}
-      value={day}
+      <div className="body">
+      
+     <Title
+      title="Currency Exchange Rates (Base EUR)" 
+     />
+
+     <InputText
+     fetch={doFetchWithoutDate}
+     />
+
+     <DateInput
+       placeholdertext ={"Month mm"}
+       onChange={onMonthChange}
+       dateValue={month}
       />
-     }
-     
-     {
-      <input placeholder="Year yyyy"
-        onChange={onYearChange}
-        value={year}
+
+     <DateInput
+       placeholdertext ={"Day dd"}
+       onChange={onDayChange}
+       dateValue={day}
       />
-     }
+
+     <DateInput
+       placeholdertext ={"Year yyyy"}
+       onChange={onYearChange}
+       dateValue={year}
+      />
+
     
     <button onClick={doFetchWithDate}>Submit</button>
    
     <div id="graph">
     
-    {
-        Object.keys(data).map(key =>
-         
-          key === "AUD" ? (
-            <div className="BarChart-bar-AUD" style={{height: (data[key] * 100) + "px"}}>
-            {key} {data[key]}</div>
-          ) :
-          key === "GBP" ? (
-            <div className="BarChart-bar-GBP" style={{height: (data[key] * 100) + "px"}}>
-             {key} {data[key]} </div>
-          ) :
-          key === "USD" ? (
-            <div className="BarChart-bar-USD" style={{height: (data[key] * 100) + "px"}}>
-            {key} {data[key]} </div>
-          ) :
 
-         key ==="CAD" ? (
-            <div className="BarChart-bar-CAD" style={{height: (data[key] * 100) + "px"}}>
-             {key} {data[key]} </div>
-          ) : null
-       
-          )
-   }
+    {
+        Object.keys(data).filter((key, index) => {return index <= 5}).map(key =>
+        // Object.keys(data).filter((key, index) => {console.log(key,":",index); return index <= 5}).map(key =>
+         {
+          return(
+            <Bar 
+              barKey={key}
+              data={data}
+            />
+           )
+         })
+        }
       </div>
       </div>
       </div>

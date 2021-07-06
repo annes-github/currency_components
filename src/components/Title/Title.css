@@ -1,0 +1,15 @@
+h1 {
+    margin: 50px;
+    justify-content: center;
+}
+    
+    
+.BarChart-title {
+    background-color: darkblue;
+    padding-top: 20px;
+    height: 100px;
+    width: 1000px;
+    text-align: center;
+    font-size: 50px;
+    color: var(--text-color);
+}
