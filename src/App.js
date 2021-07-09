@@ -16,7 +16,7 @@ function App() {
   function doFetchWithoutDate(){
     const accessKey= 'd787bfae4ff1b140e5abf61f63b235d9'
     console.log('fetching');
-    fetch('http://api.exchangeratesapi.io/v1/latest' + '?access_key=' + accessKey)
+    fetch('//api.exchangeratesapi.io/v1/latest' + '?access_key=' + accessKey)
     .then(response => response.json())
     .then(data => {
        console.log('data came back', data);
@@ -28,7 +28,7 @@ function App() {
   function doFetchWithDate(){
     const accessKey= 'd787bfae4ff1b140e5abf61f63b235d9'
     console.log('fetching');
-    fetch('http://api.exchangeratesapi.io/v1/' + year +'-'+ month +'-' + day + '?access_key=' + accessKey)
+    fetch('//api.exchangeratesapi.io/v1/' + year +'-'+ month +'-' + day + '?access_key=' + accessKey)
     .then(response => response.json())
     .then(data => {
       setData(data.rates);
